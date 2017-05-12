@@ -2,6 +2,7 @@ package lecho.lib.hellocharts.view;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
@@ -84,13 +85,20 @@ public abstract class AbstractChartView extends View implements Chart {
         super.onDraw(canvas);
 
         if (isEnabled()) {
+            //画背景线
             axesRenderer.drawInBackground(canvas);
             int clipRestoreCount = canvas.save();
             //这里取最大区域，整个控件的宽高来绘制，防止曲线被遮挡
-            canvas.clipRect(chartComputator.getMaxContentRect());
+            Rect rect=chartComputator.getMaxContentRect();
+//            rect.top=(rect.bottom-rect.top)/2-150;
+//            rect.bottom=(rect.bottom-rect.top)/2+300;
+            canvas.clipRect(rect);
+            //画图表
             chartRenderer.draw(canvas);
             canvas.restoreToCount(clipRestoreCount);
+            //画图表上的值
             chartRenderer.drawUnclipped(canvas);
+            //画坐标轴标签
             axesRenderer.drawInForeground(canvas);
         } else {
             canvas.drawColor(ChartUtils.DEFAULT_COLOR);

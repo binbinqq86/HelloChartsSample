@@ -43,7 +43,7 @@ import lecho.lib.hellocharts.view.LineChartView;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
-    private static final float chartWidth=9f;
+    private static final float chartWidth=4f;
 
     @BindView(R.id.chart)
     LineChartView chart;
